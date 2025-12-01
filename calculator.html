@@ -3,49 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculator</title>
+    <title>Scientific Calculator</title>
     <link rel="stylesheet" href="calculator.css">
 </head>
 <body>
 
-    <div class="calculator-container">
-        <div id="display">0</div>
+    <main class="calculator-container">
+    <output id="display" aria-live="polite">0</output>
 
-        <div class="buttons">
-    <button class="btn func" data-val="sin(">sin</button>
-    <button class="btn func" data-val="cos(">cos</button>
-    <button class="btn func" data-val="tan(">tan</button>
-    <button class="btn action">C</button>
-    <button class="btn action">DEL</button>
+    <section class="buttons" aria-label="Calculator buttons">
+        <!-- no <fieldset> tags, just listing buttons directly -->
+        <button class="btn func" data-val="sin(" aria-label="sine">sin</button>
+        <button class="btn func" data-val="cos(" aria-label="cosine">cos</button>
+        <button class="btn func" data-val="tan(" aria-label="tangent">tan</button>
+        <button class="btn action" aria-label="clear all">C</button>
+        <button class="btn action" aria-label="delete last digit">DEL</button>
 
-    <button class="btn func" data-val="sqrt(">√</button>
-    <button class="btn func" data-val="^">^</button> <button class="btn func" data-val="(">(</button>
-    <button class="btn func" data-val=")">)</button>
-    <button class="btn operator">/</button>
+        <button class="btn func" data-val="sqrt(" aria-label="square root">√</button>
+        <button class="btn func" data-val="^" aria-label="power">^</button>
+        <button class="btn func" data-val="(" aria-label="open parenthesis">(</button>
+        <button class="btn func" data-val=")" aria-label="close parenthesis">)</button>
+        <button class="btn operator" aria-label="divide">/</button>
 
-    <button class="btn number">7</button>
-    <button class="btn number">8</button>
-    <button class="btn number">9</button>
-    <button class="btn func" data-val="log(">log</button>
-    <button class="btn operator">*</button>
+        <button class="btn number" aria-label="seven">7</button>
+        <button class="btn number" aria-label="eight">8</button>
+        <button class="btn number" aria-label="nine">9</button>
+        <button class="btn func" data-val="log(" aria-label="logarithm">log</button>
+        <button class="btn operator" aria-label="multiply">*</button>
 
-    <button class="btn number">4</button>
-    <button class="btn number">5</button>
-    <button class="btn number">6</button>
-    <button class="btn func" data-val="pi">π</button>
-    <button class="btn operator">-</button>
+        <button class="btn number" aria-label="four">4</button>
+        <button class="btn number" aria-label="five">5</button>
+        <button class="btn number" aria-label="six">6</button>
+        <button class="btn func" data-val="pi" aria-label="pi constant">π</button>
+        <button class="btn operator" aria-label="subtract">-</button>
 
-    <button class="btn number">1</button>
-    <button class="btn number">2</button>
-    <button class="btn number">3</button>
-    <button class="btn func" data-val="e">e</button>
-    <button class="btn operator">+</button>
+        <button class="btn number" aria-label="one">1</button>
+        <button class="btn number" aria-label="two">2</button>
+        <button class="btn number" aria-label="three">3</button>
+        <button class="btn func" data-val="e" aria-label="euler's number">e</button>
+        <button class="btn operator" aria-label="add">+</button>
 
-    <button class="btn number zero">0</button>
-    <button class="btn number">.</button>
-    <button class="btn equals" id="equals">=</button>
-    </div>
-    </div>
+        <button class="btn number zero" aria-label="zero">0</button>
+        <button class="btn number" aria-label="decimal point">.</button>
+        <button class="btn equals" id="equals" aria-label="equals">=</button>
+    </section>
+</main>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.js"></script>
     <script type="module" src="dist/calculator.js"></script>
 </body>

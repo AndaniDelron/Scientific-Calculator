@@ -1,65 +1,267 @@
+/* ========================================
+   ROOT VARIABLES (Design Tokens)
+   ======================================== */
+:root {
+    /* Colors */
+    --bg-dark: #222;
+    --calc-bg: #333;
+    --display-bg: #eee;
+    --display-text: #333;
+    --btn-default: #555;
+    --btn-hover: #777;
+    --btn-operator: #f39c12;
+    --btn-operator-hover: #e67e22;
+    --btn-function: #34495e;
+    --btn-function-hover: #45637d;
+    --btn-equals: #27ae60;
+    --btn-equals-hover: #229954;
+    --text-light: white;
+    
+    /* Spacing */
+    --spacing-sm: 10px;
+    --spacing-md: 20px;
+    
+    /* Border radius */
+    --radius-sm: 5px;
+    --radius-md: 10px;
+    
+    /* Shadows */
+    --shadow-main: 0px 10px 20px rgba(0, 0, 0, 0.5);
+    
+    /* Typography */
+    --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-size-display: 2rem;
+    --font-size-button: 1.2rem;
+}
+
+/* ========================================
+   LAYOUT
+   ======================================== */
 body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full screen height */
-    background-color: #222;
-    font-family: sans-serif;
+    min-height: 100vh; /* min-height is better than height */
+    margin: 0; /* Remove default body margin */
+    background-color: var(--bg-dark);
+    font-family: var(--font-main);
 }
 
 .calculator-container {
-    background-color: #333;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 10px 20px rgba(0,0,0,0.5);
+    background-color: var(--calc-bg);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-main);
+    max-width: 400px; /* Prevent it getting too wide on large screens */
+    width: 100%; /* Allow it to shrink on mobile */
 }
 
+/* ========================================
+   DISPLAY/OUTPUT
+   ======================================== */
+output,
 #display {
-    background-color: #eee;
-    color: #333;
-    font-size: 2rem;
+    display: block;
+    background-color: var(--display-bg);
+    color: var(--display-text);
+    font-size: var(--font-size-display);
+    font-weight: 500; /* Slightly bolder for readability */
     text-align: right;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    height: 40px;
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    border-radius: var(--radius-sm);
+    min-height: 40px; /* min-height instead of height */
+    height: auto; /* Allow wrapping for long calculations */
+    line-height: 1.2;
+    word-wrap: break-word; /* Prevent overflow */
+    overflow-x: auto; /* Scroll if really long */
 }
 
-/* THE GRID MAGIC */
+/* ========================================
+   BUTTON GRID
+   ======================================== */
 .buttons {
     display: grid;
-    /* CHANGE TO 5 COLUMNS */
-    grid-template-columns: repeat(5, 1fr); 
-    gap: 10px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--spacing-sm);
 }
 
-/* Update the equals button to span 3 columns now */
-.equals {
-    grid-column: span 3;
-    background-color: #27ae60;
-}
-
-/* Style the new scientific function buttons */
-.func {
-    background-color: #34495e;
-    color: white;
-}
-.func:hover { background-color: #45637d; }
+/* ========================================
+   BUTTON BASE STYLES
+   ======================================== */
 .btn {
-    padding: 20px;
-    font-size: 1.2rem;
+    padding: var(--spacing-md);
+    font-size: var(--font-size-button);
+    font-weight: 600; /* Make text slightly bolder */
     border: none;
-    border-radius: 5px;
+    border-radius: var(--radius-sm);
     cursor: pointer;
-    background-color: #555;
-    color: white;
+    background-color: var(--btn-default);
+    color: var(--text-light);
+    transition: all 0.15s ease; /* Smooth hover effect */
+    user-select: none; /* Prevent text selection on clicks */
 }
 
-.btn:hover { background-color: #777; }
-
-.operator { background-color: #f39c12; }
-.equals { 
-    background-color: #27ae60; 
-    grid-row: span 2; /* Make the equals button tall! */
+.btn:hover {
+    background-color: var(--btn-hover);
+    transform: translateY(-2px); /* Subtle lift effect */
 }
-.zero { grid-column: span 2; /* Make the 0 button wide! */ }
+
+.btn:active {
+    transform: translateY(0); /* Button press effect */
+}
+
+/* Ensure buttons don't get squished */
+.btn {
+    min-height: 60px;
+}
+
+/* ========================================
+   BUTTON VARIANTS
+   ======================================== */
+.operator {
+    background-color: var(--btn-operator);    /*overrides the background color for button when pressed*/
+}
+
+.operator:hover {
+    background-color: var(--btn-operator-hover); /*overrides the background color for button when hovering*/
+}
+
+
+.func {
+    background-color: var(--btn-function);
+}
+
+.func:hover {
+    background-color: var(--btn-function-hover);
+}
+
+.equals {                                  /*GRID SPANNING = sign spans 3 columns*/
+    background-color: var(--btn-equals);
+    grid-column: span 2;
+    font-weight: 700; /* Make equals button text bolder */
+}
+
+.equals:hover {
+    background-color: var(--btn-equals-hover);
+}
+
+.zero {
+    grid-column: span 2;           /*GRID SPANNING 0 spans 2 columns*/
+}
+
+
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Remove default fieldset styling */
+fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Focus styles for keyboard navigation (IMPORTANT!) */
+.btn:focus-visible {
+    outline: 3px solid var(--btn-equals);
+    outline-offset: 2px;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+@media (max-width: 480px) {
+    .calculator-container {
+        padding: 15px;
+        margin: 10px; /* Add margin on very small screens */
+    }
+    
+    output,
+    #display {
+        font-size: 1.5rem;
+        padding: 10px;
+    }
+    
+    .btn {
+        padding: 10px;
+        font-size: 1rem;
+        min-height: 50px;
+    }
+}
+
+/* ========================================
+   PRINT STYLES 
+   ======================================== */
+@media print {
+    body {
+        background-color: white;
+    }
+    
+    .calculator-container {
+        box-shadow: none;
+        border: 1px solid black;
+    }
+}
+
+
+/* ========================================
+   DESKTOP UPGRADES (Large Screens)
+   ======================================== */
+@media (min-width: 1024px) {
+    
+    /* 1. Make the background look like a workspace */
+    body {
+        /* A subtle radial gradient makes it look like a spotlight on the desk */
+        background: radial-gradient(circle at center, #2c3e50, #000000);
+    }
+
+    /* 2. Make the calculator physically larger */
+    .calculator-container {
+        max-width: 450px; /* Bigger width */
+        padding: 40px;    /* More breathing room */
+        
+        /* Deeper shadow to make it 'float' off the screen */
+        box-shadow: 0px 30px 60px rgba(0,0,0,0.8);
+        
+        /* Optional: Glassmorphism effect (frosted glass) */
+        background-color: rgba(51, 51, 51, 0.95);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* 3. Bigger Display */
+    #display {
+        font-size: 2.5rem; /* Huge, easy to read numbers */
+        height: 70px;
+        margin-bottom: 20px;
+    }
+
+    /* 4. Perfect Square Buttons */
+    .buttons {
+        gap: 10px; /* More space between buttons */
+    }
+
+    .btn {
+        font-size: 1.5rem; /* Bigger text */
+        border-radius: 12px; /* Smoother corners */
+        aspect-ratio: 1 / 1; /* Forces buttons to be perfect squares! */
+    }
+    
+    /* Adjust specific buttons that span columns */
+    .zero { aspect-ratio: auto; }
+    .equals { aspect-ratio: auto; }
+}
+
