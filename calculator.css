@@ -1,0 +1,65 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full screen height */
+    background-color: #222;
+    font-family: sans-serif;
+}
+
+.calculator-container {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 10px 20px rgba(0,0,0,0.5);
+}
+
+#display {
+    background-color: #eee;
+    color: #333;
+    font-size: 2rem;
+    text-align: right;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    height: 40px;
+}
+
+/* THE GRID MAGIC */
+.buttons {
+    display: grid;
+    /* CHANGE TO 5 COLUMNS */
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 10px;
+}
+
+/* Update the equals button to span 3 columns now */
+.equals {
+    grid-column: span 3;
+    background-color: #27ae60;
+}
+
+/* Style the new scientific function buttons */
+.func {
+    background-color: #34495e;
+    color: white;
+}
+.func:hover { background-color: #45637d; }
+.btn {
+    padding: 20px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #555;
+    color: white;
+}
+
+.btn:hover { background-color: #777; }
+
+.operator { background-color: #f39c12; }
+.equals { 
+    background-color: #27ae60; 
+    grid-row: span 2; /* Make the equals button tall! */
+}
+.zero { grid-column: span 2; /* Make the 0 button wide! */ }
